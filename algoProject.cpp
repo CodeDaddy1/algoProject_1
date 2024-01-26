@@ -26,8 +26,15 @@ std::string formatWithCommas(long long value) {
     return ss.str();
 }
 
-void analyzeFileContents() {
-    std::ifstream file("Character.txt");
+std::string getFileName() {
+    std::string fileName;
+    std::cout << "Please enter the file name: ";
+    std::cin >> fileName;
+    return fileName;
+}
+
+void disectFileContents(const std::string& fileName) {
+    std::ifstream file(fileName);
     if (!file.is_open()) {
         std::cerr << "Error opening file." << std::endl;
         return;
@@ -263,18 +270,26 @@ void promptMenu(){
 
 
 int main(){
-char choice;    
+char choice;
+std::string fileName = "Character.txt";
+
     do {
         commenceProgram();
         promptMenu();
     } while (repeatProgram());
     std::cout << std::endl;
+
     do {
-        analyzeFileContents();
-        std::cout << "Would you like to read the same file again? (Y/N): ";
+        disectFileContents(fileName);
+        std::cout << "Would you like to analyze another file? (Y/N): ";
+        char choice;
         std::cin >> choice;
-    } while (choice == 'Y' || choice == 'y');
-    std::cout << std::endl;
+        if (choice == 'Y' || choice == 'y') {
+            fileName = getFileName();
+        } else {
+            break;
+        }
+    } while (true);
     goodBye();
 return 0;
 }
