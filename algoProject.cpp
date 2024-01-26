@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iomanip>
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -250,6 +249,7 @@ bool repeatProgram(){
 // Function that prompts menu for the user.
 void promptMenu(){
 
+    std::cout << std::endl;
     std::cout << "Select from the menu below entering  1 - 5 " << std::endl;
     std::cout << std::endl;
 
@@ -296,6 +296,9 @@ void promptMenu(){
 // Main program that utilizes all of the functions above.
 
 int main(){
+    // Capture runtime of program.
+    auto start_time = std::chrono::high_resolution_clock::now();
+
     char choice;
     std::string fileName = "Character.txt";
 
@@ -319,6 +322,14 @@ int main(){
             break;
         }
     } while (true);
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
+    // Display the runtime in seconds
+    std::cout << std::endl;
+    std::cout << "Runtime: " << duration.count() << " seconds" << std::endl;
+    std::cout << std::endl;
+
     goodBye();
+    
     return 0;
 }
